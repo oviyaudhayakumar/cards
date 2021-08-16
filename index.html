@@ -1,0 +1,593 @@
+
+
+
+
+
+
+
+<html>
+    <title>Darebuzz</title>
+    <style>
+    h1{
+    font-size: 30px;
+    color: white;
+    font-family: 'serif';
+    }
+    /* CSS reset */
+    *,
+    *::after,
+    *::before {
+      box-sizing: inherit;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html { font-size: 62.5%; }
+    
+    body {
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+      position: relative;
+      background-color: black;
+    }
+    
+    /* Typography =======================*/
+    
+    /* Headings */
+    
+    /* Main heading for card's front cover */
+    .card-front__heading {
+      font-size: 1.5rem;
+      margin-top: .25rem;
+    }
+    
+    /* Main heading for inside page */
+    .inside-page__heading { 
+      padding-bottom: 1rem; 
+      width: 100%;
+    }
+    
+    /* Mixed */
+    
+    /* For both inside page's main heading and 'view me' text on card front cover */
+    .inside-page__heading,
+    .card-front__text-view {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-top: .2rem;
+    }
+    
+    .inside-page__heading--city,
+    .card-front__text-view--city { color: #ff62b2; font-size: 15px;}
+    
+    .inside-page__heading--ski,
+    .card-front__text-view--ski { color: #2aaac1; font-size: 15px; }
+    
+    .inside-page__heading--beach,
+    .card-front__text-view--beach { color: #fa7f67; font-size: 15px;}
+    
+    .inside-page__heading--camping,
+    .card-front__text-view--camping { color: #00b97c; font-size: 15px;}
+    
+    /* Front cover */
+    
+    .card-front__tp { color: #fafbfa; }
+    
+    /* For pricing text on card front cover */
+    .card-front__text-price {
+      font-size: 1.2rem;
+      margin-top: -.2rem;
+    }
+    
+    /* Back cover */
+    
+    /* For inside page's body text */
+    .inside-page__text {
+      color: #333;
+      font-size: 11px;
+    }
+    
+    /* Icons ===========================================*/
+    
+    .card-front__icon {
+      fill: #fafbfa;
+      font-size: 3vw;
+      height: 3.25rem;
+      margin-top: -.5rem;
+      width: 3.25rem;
+    }
+    
+    /* Buttons =================================================*/
+    
+    .inside-page__btn {
+      background-color: transparent;
+      border: 3px solid;
+      border-radius: .5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      overflow: hidden;
+      padding: .7rem .75rem;
+      position: relative;
+      text-decoration: none;
+      transition: all .3s ease;
+      width: 90%;
+      z-index: 10;
+    }
+    
+    .inside-page__btn::before { 
+      content: "";
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transform: scaleY(0);
+      transition: all .3s ease;
+      width: 100%;
+      z-index: -1;
+    }
+    
+    .inside-page__btn--city { 
+      border-color: #ff40a1;
+      color: #ff40a1;
+    }
+    
+    .inside-page__btn--city::before { 
+      background-color: #ff40a1;
+    }
+    
+    .inside-page__btn--ski { 
+      border-color: #279eb2;
+      color: #279eb2;
+    }
+    
+    .inside-page__btn--ski::before { 
+      background-color: #279eb2;
+    }
+    
+    .inside-page__btn--beach { 
+      border-color: #fa7f67;
+      color: #fa7f67;
+    }
+    
+    .inside-page__btn--beach::before { 
+      background-color: #fa7f67;
+    }
+    
+    .inside-page__btn--camping { 
+      border-color: #00b97d;
+      color: #00b97d;
+    }
+    
+    .inside-page__btn--camping::before { 
+      background-color: #00b97d;
+    }
+    
+    .inside-page__btn:hover { 
+      color: #fafbfa;
+    }
+    
+    .inside-page__btn:hover::before { 
+      transform: scaleY(1);
+    }
+    
+    /* Layout Structure=========================================*/
+    
+    .main {
+      background: url("https://images.unsplash.com/photo-1465146633011-14f8e0781093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"), #111111;
+      animation: scroll 70s linear infinite;
+      color: #eee;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+    }
+    
+    /* Container to hold all cards in one place */
+    .card-area {
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      height: 100%;
+      justify-content: space-evenly;
+      padding: 1rem;
+    }
+    @keyframes scroll {
+       100%{
+        background-position:0px -3000px;
+      }
+    }
+    
+    @media (prefers-reduced-motion) {
+      .main {
+        animation: scroll 200s linear infinite;
+      }
+    }
+    
+    
+    /* Card ============================================*/
+    
+    /* Area to hold an individual card */
+    .card-section {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    /* A container to hold the flip card and the inside page */
+    .card {
+      background-color: rgba(0,0,0, .05);
+      box-shadow: -.1rem 1.7rem 6.6rem -3.2rem rgba(0,0,0,0.5);
+      height: 23rem;
+      position: relative;
+      transition: all 1s ease;
+      width: 20rem;
+    }
+    
+    /* Flip card - covering both the front and inside front page */
+    
+    /* An outer container to hold the flip card. This excludes the inside page */
+    .flip-card {
+      height: 23rem;
+      perspective: 100rem;
+      position: absolute;
+      right: 0;
+      transition: all 1s ease;
+      visibility: hidden;
+      width: 20rem;
+      z-index: 100;
+    }
+    
+    /* The outer container's visibility is set to hidden. This is to make everything within the container NOT set to hidden  */
+    /* This is done so content in the inside page can be selected */
+    .flip-card > * {
+      visibility: visible;
+    }
+    
+    /* An inner container to hold the flip card. This excludes the inside page */
+    .flip-card__container {
+      height: 100%;
+      position: absolute;
+      right: 0;
+      transform-origin: left;
+      transform-style: preserve-3d;
+      transition: all 1s ease;
+      width: 100%;
+    }
+    
+    .card-front,
+    .card-back {
+      backface-visibility: hidden;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    
+    /* Styling for the front side of the flip card */
+    
+    /* container for the front side */
+    .card-front {
+      background-color: #fafbfa;
+      height: 23rem;
+      width: 23rem;
+    }
+    
+    /* Front side's top section */
+    .card-front__tp {
+      align-items: center;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 57% 90%, 50% 100%, 43% 90%, 0 90%);
+      display: flex;
+      flex-direction: column;
+      height: 20rem;
+      justify-content: center;
+      padding: .75rem;
+    }
+    
+    .card-front__tp--city {
+      background: linear-gradient(
+        to bottom,
+        #ff73b9,
+        #ff40a1
+      );
+    }
+    
+    .card-front__tp--ski {
+      background: linear-gradient(
+        to bottom,
+        #47c2d7,
+        #279eb2
+      );
+    }
+    
+    .card-front__tp--beach {
+      background: linear-gradient(
+        to bottom,
+        #fb9b88,
+        #f86647
+      );
+    }
+    
+    .card-front__tp--camping {
+      background: linear-gradient(
+        to bottom,
+        #00db93,
+        #00b97d
+      );
+    }
+    
+    /* Front card's bottom section */
+    .card-front__bt {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Styling for the back side of the flip card */
+    
+    .card-back {
+      background-color: #f5fcf5;
+      transform: rotateY(180deg);
+    }
+    
+    /* Specifically targeting the <video> element */
+    .video__container {
+      clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%);
+      height: auto;
+      min-height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+    
+    /* Inside page */
+    
+    .inside-page {
+      background-color: #fafbfa;
+      box-shadow: inset 20rem 0px 5rem -2.5rem rgba(0,0,0,0.25);
+      height: 100%;
+      padding: 1rem;
+      position: absolute;
+      right: 0;
+      transition: all 1s ease;
+      width: 20rem;
+      z-index: 1;
+    }
+    
+    .inside-page__container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-align: center; 
+      width: 100%;
+    }
+    
+    /* Functionality ====================================*/
+    
+    /* This is to keep the card centered (within its container) when opened */
+    .card:hover {
+      box-shadow:
+      -.1rem 1.7rem 6.6rem -3.2rem rgba(0,0,0,0.75);
+      width: 30rem;
+    }
+    
+    /* When the card is hovered, the flip card container will rotate */
+    .card:hover .flip-card__container {
+      transform: rotateY(-180deg);
+    }
+    
+    /* When the card is hovered, the shadow on the inside page will shrink to the left */
+    .card:hover .inside-page {
+      box-shadow: inset 1rem 0px 5rem -2.5rem rgba(0,0,0,0.1);
+    }
+    .row {
+      display: -ms-flexbox; 
+      display: flex;
+      -ms-flex-wrap: wrap; 
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    button {
+      width: 48px;
+      height: 48px;
+      background-color: #fff;
+      border-radius: 48px;
+      border: 2px solid #f2af29;
+      transition: all 0.3s ease;
+    }
+    
+    button::after {
+      content: "\279C";
+      font-size: 18px;
+      color: #f2af29;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      border-color: #14519f;
+    }
+    
+    button:hover::after {
+      color: #14519f;
+    }
+    
+    
+    </style>
+    <body>
+        <main class="main">
+            <center><h1 style="padding-top:10px;">Let's learn About Thanjavur</h1></center>
+
+            <section class="card-area">
+    
+                <!-- Card: City -->
+                <section class="card-section">
+                  <div class="row">
+                    <div class="card">
+                        <div class="flip-card">
+                            <div class="flip-card__container">
+                                <div class="card-front">
+                                    <div class="card-front__tp card-front__tp--city">
+                                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" class="card-front__icon">
+                                   </svg>
+                                  
+                                   <h2 class="card-front__heading">
+                                    Temples 
+                                </h2><br>
+                                <p class="card-front__text-price">
+                                  Thanjavur
+                                </p>
+                                    </div>
+    
+                                    <div class="card-front__bt">
+                                        <p class="card-front__text-view card-front__text-view--city">
+                                            View more
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card-back">
+                                    <video class="video__container" autoplay muted loop>
+                                        <source class="video__media" src="le.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inside-page">
+                            <div class="inside-page__container">
+                                <h3 class="inside-page__heading inside-page__heading--city">
+                                  Temples
+                                </h3>
+                                <p class="inside-page__text">
+                                  There is no place in the world where you feel closer to the Lord than in one of His holy temples. 
+                                </p>
+                                <br><br><br><br><br><br>
+                                <a href="https://www.dharisanam.com/temples-near/Tanjore" class="inside-page__btn inside-page__btn--beach">Explore more</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    
+                <!-- Card: Ski -->
+                <section class="card-section">
+                    <div class="card">
+                        <div class="flip-card">
+                            <div class="flip-card__container">
+                                <div class="card-front">
+                                    <div class="card-front__tp card-front__tp--ski">
+                                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" class="card-front__icon">
+                                   <g>
+                                   </g>
+                                   </svg>
+                                                   <h2 class="card-front__heading">
+                                                   Paintings
+                                                   </h2><br>
+                                                   <p class="card-front__text-price">
+                                                       Thanjavur
+                                                   </p>
+                                    </div>
+    
+                                    <div class="card-front__bt">
+                                        <p class="card-front__text-view card-front__text-view--ski">
+                                            view more
+                                        </p>
+                                    </div>
+                                </div>
+    
+                                 <div class="card-back">
+                                    <video class="video__container" autoplay muted loop>
+                                        <source class="video__media" src="int.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="inside-page">
+                            <div class="inside-page__container">
+                                <h3 class="inside-page__heading inside-page__heading--ski">
+                                    Paintings
+                                </h3>
+                                <p class="inside-page__text">
+                                  Tanjore painting ranks among the greatest traditional art forms for which India is noted worldwide.
+                                </p>
+                                <br><br><br><br><br><br>
+                                <a href="https://en.wikipedia.org/wiki/Thanjavur_painting" class="inside-page__btn inside-page__btn--beach">Explore more</a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </section>
+    
+    
+                <!-- Card: Beach -->
+                <section class="card-section">
+                  <div class="row">
+                    <div class="card">
+                        <div class="flip-card">
+                            <div class="flip-card__container">
+                                <div class="card-front">
+                                    <div class="card-front__tp card-front__tp--beach">
+                                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" class="card-front__icon">
+                                   </svg>
+                                   
+                                                   <h2 class="card-front__heading">
+                                                    Rise Bowl Of Tamil Nadu
+                                                   </h2><br>
+                                                   <p class="card-front__text-price">
+                                                    Thanjavur
+                                                   </p>
+                                    </div>
+    
+                                    <div class="card-front__bt">
+                                        <p class="card-front__text-view card-front__text-view--beach">
+                                            View more
+                                        </p>
+                                    </div>
+                                </div>
+                               <div class="card-back">
+                                    <video class="video__container" autoplay muted loop>
+                                        <source class="video__media" src="rice.mp4" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        
+    
+                        <div class="inside-page">
+                            <div class="inside-page__container">
+                                <h3 class="inside-page__heading inside-page__heading--beach">
+                                  Rise Bowl
+                                </h3>
+                                <p class="inside-page__text">
+                                  Rice is great if you're really hungry and want to eat two thousand of something.
+                                </p>
+                                <br><br><br><br><br><br>
+                                <a href="https://thanjavur.nic.in/history/" class="inside-page__btn inside-page__btn--beach">Explore more</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    
+            </section>
+            <center><a href="level7.html"><button></button></a></center>
+        </main>
+    </body>
+    </html>
